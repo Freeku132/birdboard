@@ -19,6 +19,7 @@
 <h1>{{$project->title}}</h1>
 
 <div>{{$project->description}}</div>
+<div>{{$project->owner_id}}</div>
 
 </body>
 </html>

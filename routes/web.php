@@ -16,7 +16,7 @@ use App\Http\Controllers\ProjectsController;
 
 
 
-Route::post('/projects', [ProjectsController::class, 'store']);
+Route::post('/projects', [ProjectsController::class, 'store'])->middleware('auth');
 
 Route::get('/projects', [ProjectsController::class, 'index']);
 Route::get('/projects/{project}', [ProjectsController::class, 'show']);
@@ -26,3 +26,7 @@ Route::get('/projects/{project}', [ProjectsController::class, 'show']);
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

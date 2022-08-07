@@ -17,7 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
+//            $table->unsignedBigInteger('owner_id');
+//            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('owner_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
+
+            //$table->foreign('owner_id')->references('id')->on('users');
         });
     }
 
