@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProjectsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+
+Route::post('/projects', [ProjectsController::class, 'store']);
+
+Route::get('/projects', [ProjectsController::class, 'index']);
+Route::get('/projects/{project}', [ProjectsController::class, 'show']);
+
+
 
 Route::get('/', function () {
     return view('welcome');
