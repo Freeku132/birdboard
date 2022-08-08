@@ -1,30 +1,20 @@
-<!doctype html>
+<x-layout>
+<div class=" items-center">
 
-<title>Birdboard</title>
-{{--<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">--}}
-{{--<link rel="preconnect" href="https://fonts.gstatic.com">--}}
-{{--<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">--}}
-{{--<script src="//unpkg.com/alpinejs" defer></script>--}}
-
-<style>
-    html
-    {
-        scroll-behavior: smooth;
-    }
-</style>
-
-<body style="font-family: Open Sans, sans-serif">
-<h1>Birdboard</h1>
-
-<ul>
-@forelse($projects as $project)
-    <li>
-        <a href="{{$project->path()}}">{{$project->title}}</a>
-    </li>
-
-    @empty
-    <li>No project yet</li>
-    @endforelse
-</ul>
-
-</body>
+    <p><a href="/projects/create">Create another one project!</a> </p>
+</div>
+    <div class="flex">
+        @forelse($projects as $project)
+        <div class="bg-white m-lg-3 rounded-2 shadow w-1/3 p-3">
+            <h3 class="font-normal text-xl mb-4 py-2">{{$project->title}}</h3>
+            <div class="text-gray-400">{{ \Illuminate\Support\STR::limit($project->description, 100)}}</div>
+        </div>
+        @empty
+            <div>
+                <h3>
+                No project yet
+                </h3>
+            </div>
+        @endforelse
+    </div>
+</x-layout>
