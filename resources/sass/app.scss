@@ -7,3 +7,10 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+.card {
+    @apply bg-white rounded-xl shadow-sm p-3 border-0;
+}
+.header_card
+{
+    @apply font-normal text-xl mb-4 py-2 -ml-4 border-l-4 border-cyan-400 pl-4;
+}

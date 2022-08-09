@@ -24,7 +24,8 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container mx-auto">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Birdboard') }}
+                <img src="/images/logo.svg" alt="Birdboard">
+
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -76,7 +77,7 @@
         </div>
     </nav>
 
-    <main class="py-4 container mx-auto">
+    <main class="py-4 container mx-auto ">
         {{$slot}}
     </main>
 </div>

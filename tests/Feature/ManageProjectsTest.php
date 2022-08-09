@@ -29,9 +29,11 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function a_user_can_create_a_project()
     {
+        $this->singIn();
+
         $this->withoutExceptionHandling();
 
-        $this->actingAs(User::factory()->create());
+        //$this->actingAs(User::factory()->create());
 
         $this->get('/projects/create')->assertStatus(200);
 
@@ -51,7 +53,8 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function a_project_requires_a_title()
     {
-        $this->actingAs(User::factory()->create());
+        $this->singIn();
+        //$this->actingAs(User::factory()->create());
 
         //$this->withoutExceptionHandling();
 
@@ -62,7 +65,9 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function a_project_requires_a_description()
     {
-        $this->actingAs(User::factory()->create());
+        $this->singIn();
+
+        //$this->actingAs(User::factory()->create());
 
         //$this->withoutExceptionHandling();
 
@@ -73,10 +78,10 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function a_user_can_view_their_project()
     {
+        $this->singIn();
+       // $this->be(User::factory()->create());
 
-        $this-> be(User::factory()->create());
-
-        $this->withoutExceptionHandling();
+       $this->withoutExceptionHandling();
 
         $project = Project::factory()->create(['owner_id' => auth()->id()]);
 
