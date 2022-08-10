@@ -35,10 +35,10 @@ class ProjectsController extends Controller
         ]);
 
         //$attributes['owner_id'] = \Auth::id();
-        \auth()->user()->projects()->create($attributes);
+        $project =\auth()->user()->projects()->create($attributes);
         //Project::create($attributes);
 
-        return redirect('/projects');
+        return redirect($project->path());
     }
     public function create()
     {

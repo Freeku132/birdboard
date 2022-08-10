@@ -3,7 +3,7 @@
     <h2 class="font-normal text-gray-500">My Projects</h2>
     <p class=>
         <a href="/projects/create">
-            <button type="submit" class="m-4 bg-cyan-400 text-white rounded p-1 shadow-sm hover:bg-cyan-500 active:translate-y-0.5"  href="/projects/create">Create new post</button>
+            <button type="submit" class="m-4 bg-cyan-400 text-white rounded p-1 shadow-sm hover:bg-cyan-500 active:translate-y-0.5"  href="/projects/create">Create new project</button>
         </a>
     </p>
 </header>

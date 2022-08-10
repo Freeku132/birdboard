@@ -13,15 +13,26 @@
         <div class="lg:w-2/3 mr-5">
             <div class="mb-10">
                 <h3 class="font-normal text-gray-500 text-lg">Task</h3>
-                @forelse($project->tasks as $task)
-                    <div class="card mb-4"> {{$task->body}} </div>
-                @empty
+                @foreach($project->tasks as $task)
+
                         <div class="card mb-4">
-                            <form method="POST" action="{{$project->path().'/tasks'}}" >
-                                <input placeholder="No task yet." class="w-100">
+                            <form method="POST" action="{{$project->path().'/tasks/'.$task->id}}">
+                                @method('PATH')
+                                @csrf
+                                <div class="flex justify-between">
+                                <input class="w-3/4" id="body" name="body" value="{{$task->body}}">
+                                <input type="checkbox" name="completed" class="m-1" onchange="this.form.submit()">
+                                </div>
                             </form>
                         </div>
-                @endforelse
+
+                @endforeach
+                <div class="card mb-4">
+                    <form method="POST" action="{{$project->path().'/tasks'}}" >
+                        @csrf
+                        <input type="text" name="body" id="body" placeholder="Add a new task" class="w-100">
+                    </form>
+                </div>
 
             </div>
             <div>
@@ -32,7 +43,6 @@
                 <textarea class="card mb-4 w-full" style="min-height: 100px"> Lorem ipsum. </textarea>
             </div>
         </div>
-        <img src="https://playarena.pl/uf/media/images_thumb/thumb_309531-0ac00115-fe06-3e87.png">
 
 
 

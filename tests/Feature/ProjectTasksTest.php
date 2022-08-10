@@ -5,8 +5,10 @@ namespace Tests\Feature;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use phpDocumentor\Reflection\Types\True_;
 use Tests\TestCase;
 
 class ProjectTasksTest extends TestCase
@@ -51,5 +53,23 @@ class ProjectTasksTest extends TestCase
         $this->post($project->path().'/tasks', ['body' => 'Task task'])->assertStatus(403);
 
         $this->assertDatabaseMissing('tasks', ['body'=>'Task task']);
+    }
+    /** @test */
+    public function a_task_can_be_updated()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->singIn();
+
+        $project = Project::factory()->create(['owner_id' => auth()->id()]);
+
+        $task = $project->addTask('Task task');
+
+        $this->patch($project->path().'/tasks/'.$task->id, [
+            'body' => 'New task',
+            'completed' => Carbon::now()
+        ]);
+
+        $this->assertDatabaseHas('tasks', ['body' => 'New task', 'completed' => Carbon::now()]);
     }
 }
