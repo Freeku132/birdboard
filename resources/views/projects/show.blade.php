@@ -15,13 +15,13 @@
                 <h3 class="font-normal text-gray-500 text-lg">Task</h3>
                 @foreach($project->tasks as $task)
 
-                        <div class="card mb-4">
-                            <form method="POST" action="{{$project->path().'/tasks/'.$task->id}}">
-                                @method('PATH')
+                        <div class="card mb-4 ">
+                            <form method="POST" action="{{$task->path()}}">
+                                @method('PATCH')
                                 @csrf
-                                <div class="flex justify-between">
-                                <input class="w-3/4" id="body" name="body" value="{{$task->body}}">
-                                <input type="checkbox" name="completed" class="m-1" onchange="this.form.submit()">
+                                <div class="flex justify-between ">
+                                <input class="w-3/4 {{$task->completed ? 'text-gray-400' : ''}}" id="body" name="body" value="{{$task->body}}">
+                                <input type="checkbox" name="completed" class="m-1" onchange="this.form.submit()" {{$task->completed ? 'checked' : ''}}>
                                 </div>
                             </form>
                         </div>
@@ -35,12 +35,18 @@
                 </div>
 
             </div>
-            <div>
-                <h3 class="font-normal text-gray-500 text-lg">General move</h3>
-                <textarea class="card mb-4 w-full" style="min-height: 100px"> Lorem ipsum. </textarea>
-                <textarea class="card mb-4 w-full" style="min-height: 100px"> Lorem ipsum. </textarea>
-                <textarea class="card mb-4 w-full" style="min-height: 100px"> Lorem ipsum. </textarea>
-                <textarea class="card mb-4 w-full" style="min-height: 100px"> Lorem ipsum. </textarea>
+            <div class>
+                <h3 class="font-normal text-gray-500 text-lg ">General move</h3>
+                <form method="POST" action="{{$project->path()}}">
+                    @method('PATCH')
+                    @csrf
+                    <div class="flex justify-between card">
+                        <textarea class="w-100" id="notes" name="notes" placeholder="Do you want a place some notes?" >{{$project->notes}}</textarea>
+                        <button class="m-1 w-12 bg-cyan-400 text-white text-normal text-sm rounded p-1 shadow-sm hover:bg-cyan-500 active:translate-y-0.5"
+                                type="submit">Save</button>
+                    </div>
+
+                </form>
             </div>
         </div>
 

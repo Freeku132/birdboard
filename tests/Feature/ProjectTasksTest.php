@@ -57,7 +57,7 @@ class ProjectTasksTest extends TestCase
     /** @test */
     public function a_task_can_be_updated()
     {
-        $this->withoutExceptionHandling();
+        //$this->withoutExceptionHandling();
 
         $this->singIn();
 
@@ -65,11 +65,30 @@ class ProjectTasksTest extends TestCase
 
         $task = $project->addTask('Task task');
 
-        $this->patch($project->path().'/tasks/'.$task->id, [
+        $this->patch($task->path(), [
             'body' => 'New task',
             'completed' => Carbon::now()
         ]);
 
         $this->assertDatabaseHas('tasks', ['body' => 'New task', 'completed' => Carbon::now()]);
+    }
+    /** @test */
+    public function only_the_owner_of_a_project_may_update_a_task()
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->singIn();
+
+        $project = Project::factory()->create();
+        // ['owner_id' => auth()->id()]
+
+        $task = $project->addTask('Task task');
+
+        $this->patch($task->path(), [
+            'body' => 'changed',
+            'completed' => Carbon::now()
+        ])->assertStatus(403);
+
+        $this->assertDatabaseMissing('tasks', ['body' => 'changed', 'completed' => Carbon::now()]);
     }
 }

@@ -39,17 +39,40 @@ class ManageProjectsTest extends TestCase
 
         $attributes = [
             'title' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
+            'description' => $this->faker->sentence,
             //'owner_id' => User::factory()->create()->id
+            'notes' => 'General notes here.'
 
         ];
 
-        $this->post('/projects/store', $attributes)->assertRedirect('/projects');
+        $response = $this->post('/projects/store', $attributes);
+
+        $project = Project::where($attributes)->first();
+
+        $response->assertRedirect($project->path());
 
         $this->assertDatabaseHas('projects', $attributes);
 
-        $this->get('/projects')->assertSee($attributes['title']);
+        $this->get($project->path())
+            ->assertSee($attributes['title'])
+            ->assertSee($attributes['description'])
+            ->assertSee($attributes['notes']);
     }
+    /** @test */
+    public function a_user_can_update_a_project()
+    {
+        $this->singIn();
+
+        $this->withoutExceptionHandling();
+
+        $project = Project::factory()->create(['owner_id' => auth()->id()]);
+
+        $this->patch($project->path(), [
+            'notes' => 'Changed'
+        ]);
+        $this->assertDatabaseHas('projects', ['notes'=> 'Changed']);
+    }
+
     /** @test */
     public function a_project_requires_a_title()
     {
@@ -81,13 +104,13 @@ class ManageProjectsTest extends TestCase
         $this->singIn();
        // $this->be(User::factory()->create());
 
-       $this->withoutExceptionHandling();
+       //$this->withoutExceptionHandling();
 
         $project = Project::factory()->create(['owner_id' => auth()->id()]);
 
         $this->get($project->path())
             ->assertSee($project->title)
-            ->assertSee($project->description)->assertSee($project->owner_id);
+            ->assertSee($project->description);
     }
     /** @test */
     public function an_authenticated_user_cannot_view_the_projects_of_others()
@@ -100,6 +123,19 @@ class ManageProjectsTest extends TestCase
         $project = Project::factory()->create();
 
         $this->get($project->path())->assertStatus(403);
+
+    }
+    /** @test */
+    public function an_authenticated_user_cannot_update_the_projects_of_others()
+    {
+
+        $this-> be(User::factory()->create());
+
+        //$this->withoutExceptionHandling();
+
+        $project = Project::factory()->create();
+
+        $this->patch($project->path(), [])->assertStatus(403);
 
     }
 

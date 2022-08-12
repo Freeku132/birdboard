@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Faker\Generator as Faker;
 use App\Models\User;
 
+
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Project>
  */
@@ -20,7 +22,7 @@ class ProjectFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(4),
-            'description' => $this->faker->paragraph(4),
+            'description' => $this->faker->paragraph(1),
             'owner_id' => User::factory()->create()->id
         ];
     }

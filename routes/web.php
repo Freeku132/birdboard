@@ -21,11 +21,15 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/projects/create', [ProjectsController::class, 'create']);
     Route::get('/projects', [ProjectsController::class, 'index']);
     Route::get('/projects/{project}', [ProjectsController::class, 'show']);
+    Route::patch('/projects/{project}', [ProjectsController::class, 'update']);
     Route::post('/projects/{project}/tasks', [ProjectTasksController::class, 'store']);
     Route::patch('/projects/{project}/tasks/{task}', [ProjectTasksController::class, 'update']);
 
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/test', function (){
+        return view('projects.test');
+    });
 });
 
 
