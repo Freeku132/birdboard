@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Project;
@@ -10,10 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ProjectsController extends Controller
 {
+
     public function index()
     {
-       // $projects = Project::all();
-
+       //$projects = Project::with('owner')->get();
         //$projects = Project::where('owner_id', \auth()->id())->get();
 
         $projects = \auth()->user()->projects;
@@ -26,7 +27,8 @@ class ProjectsController extends Controller
 //          abort(403);
 //        }
         $this->authorize('update', $project);
-        return view('projects.show', compact('project'));
+        $tasks = Task::with('project')->get();
+        return view('projects.show', compact('project', 'tasks'));
     }
     public function store()
     {

@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use phpDocumentor\Reflection\Types\True_;
+use Facades\Tests\Setup\ProjectFactory;
 use Tests\TestCase;
 
 class ProjectTasksTest extends TestCase
@@ -21,11 +22,12 @@ class ProjectTasksTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->singIn();
+       // $this->singIn();
+       // $project =Project::factory()->create(['owner_id' => auth()->id()]);
+        $project = ProjectFactory::create();
 
-        $project =Project::factory()->create(['owner_id' => auth()->id()]);
-
-        $this->post($project->path().'/tasks', ['body' => 'Task task']);
+        $this->actingAs($project->owner)
+            ->post($project->path().'/tasks', ['body' => 'Task task']);
 
         $this->get($project->path())->assertSee('Task task');
     }
@@ -34,11 +36,13 @@ class ProjectTasksTest extends TestCase
     {
         $this->singIn();
 
-        $project = Project::factory()->create(['owner_id' => auth()->id()]);
+        //$project = Project::factory()->create(['owner_id' => auth()->id()]);
+        $project = ProjectFactory::create();
 
         $attributes = Task::factory()->raw(['body' => '']);
 
-        $this->post($project->path().'/tasks', $attributes)->assertSessionHasErrors('body');
+        $this->actingAs($project->owner)
+                ->post($project->path().'/tasks', $attributes)->assertSessionHasErrors('body');
     }
 
     /** @test */
@@ -59,13 +63,18 @@ class ProjectTasksTest extends TestCase
     {
         //$this->withoutExceptionHandling();
 
-        $this->singIn();
+        $project = ProjectFactory::ownedBy($this->singIn())
+            ->withTasks(1)
+            ->create();
 
-        $project = Project::factory()->create(['owner_id' => auth()->id()]);
 
-        $task = $project->addTask('Task task');
+        //$this->singIn();
 
-        $this->patch($task->path(), [
+        //$project = Project::factory()->create(['owner_id' => auth()->id()]);
+
+        //$task = $project->addTask('Task task');
+        //$task = $project->tasks->first();
+        $this->patch($project->tasks->first()->path(), [
             'body' => 'New task',
             'completed' => Carbon::now()
         ]);
@@ -79,12 +88,11 @@ class ProjectTasksTest extends TestCase
 
         $this->singIn();
 
-        $project = Project::factory()->create();
-        // ['owner_id' => auth()->id()]
+        //$project = Project::factory()->create();
+        //$task = $project->addTask('Task task');
+        $project = ProjectFactory::withTasks(1)->create();
 
-        $task = $project->addTask('Task task');
-
-        $this->patch($task->path(), [
+        $this->patch($project->tasks->first()->path(), [
             'body' => 'changed',
             'completed' => Carbon::now()
         ])->assertStatus(403);

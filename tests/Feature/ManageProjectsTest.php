@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Facades\Tests\Setup\ProjectFactory;
 use Tests\TestCase;
 use App\Models\Project;
 use App\Models\User;
@@ -30,8 +31,6 @@ class ManageProjectsTest extends TestCase
     public function a_user_can_create_a_project()
     {
         $this->singIn();
-
-        $this->withoutExceptionHandling();
 
         //$this->actingAs(User::factory()->create());
 
@@ -61,13 +60,13 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function a_user_can_update_a_project()
     {
-        $this->singIn();
+        //$this->singIn();
+        //$this->withoutExceptionHandling();
+        //$project = Project::factory()->create(['owner_id' => auth()->id()]);
+        $project = ProjectFactory::create();
 
-        $this->withoutExceptionHandling();
-
-        $project = Project::factory()->create(['owner_id' => auth()->id()]);
-
-        $this->patch($project->path(), [
+        $this->actingAs($project->owner)
+            ->patch($project->path(), [
             'notes' => 'Changed'
         ]);
         $this->assertDatabaseHas('projects', ['notes'=> 'Changed']);
@@ -107,8 +106,10 @@ class ManageProjectsTest extends TestCase
        //$this->withoutExceptionHandling();
 
         $project = Project::factory()->create(['owner_id' => auth()->id()]);
+        $project = ProjectFactory::create();
 
-        $this->get($project->path())
+        $this->actingAs($project->owner)
+            ->get($project->path())
             ->assertSee($project->title)
             ->assertSee($project->description);
     }
@@ -135,7 +136,7 @@ class ManageProjectsTest extends TestCase
 
         $project = Project::factory()->create();
 
-        $this->patch($project->path(), [])->assertStatus(403);
+        $this->patch($project->path())->assertStatus(403);
 
     }
 

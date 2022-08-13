@@ -37,8 +37,7 @@ class ProjectTasksController extends Controller
 
        $table = \request(['completed']);
 
-      isset($table['completed'])? $table = ['completed' => Carbon::now()] : $table = ['completed' => NULL];
-
+      isset($table['completed']) ? $table = ['completed' => Carbon::now()] : $table = ['completed' => NULL];
 
         $task->update([
             'body' => \request('body'),

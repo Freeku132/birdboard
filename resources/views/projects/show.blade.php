@@ -13,7 +13,7 @@
         <div class="lg:w-2/3 mr-5">
             <div class="mb-10">
                 <h3 class="font-normal text-gray-500 text-lg">Task</h3>
-                @foreach($project->tasks as $task)
+                @foreach($tasks as $task)
 
                         <div class="card mb-4 ">
                             <form method="POST" action="{{$task->path()}}">
