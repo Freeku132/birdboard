@@ -67,19 +67,62 @@ class ProjectTasksTest extends TestCase
             ->withTasks(1)
             ->create();
 
-
         //$this->singIn();
-
         //$project = Project::factory()->create(['owner_id' => auth()->id()]);
-
         //$task = $project->addTask('Task task');
         //$task = $project->tasks->first();
+
+        $this->patch($project->tasks->first()->path(), [
+            'body' => 'New task',
+        ]);
+
+        $this->assertDatabaseHas('tasks', ['body' => 'New task']);
+    }
+    /** @test */
+    public function a_task_can_be_completed()
+    {
+        //$this->withoutExceptionHandling();
+
+        $project = ProjectFactory::ownedBy($this->singIn())
+            ->withTasks(1)
+            ->create();
+
+        //$this->singIn();
+        //$project = Project::factory()->create(['owner_id' => auth()->id()]);
+        //$task = $project->addTask('Task task');
+        //$task = $project->tasks->first();
+
         $this->patch($project->tasks->first()->path(), [
             'body' => 'New task',
             'completed' => Carbon::now()
         ]);
 
         $this->assertDatabaseHas('tasks', ['body' => 'New task', 'completed' => Carbon::now()]);
+    }
+    /** @test */
+    public function a_task_can_be_mark_as_incompleted()
+    {
+        //$this->withoutExceptionHandling();
+
+        $project = ProjectFactory::ownedBy($this->singIn())
+            ->withTasks(1)
+            ->create();
+
+        //$this->singIn();
+        //$project = Project::factory()->create(['owner_id' => auth()->id()]);
+        //$task = $project->addTask('Task task');
+        //$task = $project->tasks->first();
+
+        $this->patch($project->tasks->first()->path(), [
+            'body' => 'New task',
+            'completed' => Carbon::now()
+        ]);
+        $this->patch($project->tasks->first()->path(), [
+            'body' => 'New task',
+            'completed' => NULL
+        ]);
+
+        $this->assertDatabaseHas('tasks', ['body' => 'New task', 'completed' => NULL]);
     }
     /** @test */
     public function only_the_owner_of_a_project_may_update_a_task()

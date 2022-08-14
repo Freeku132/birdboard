@@ -43,7 +43,7 @@ class TaskTest extends TestCase
         $this->assertNotNull($task->fresh()->completed);
     }
     /** @test */
-    public function it_can_be_uncompleted()
+    public function it_can_be_incompleted()
     {
         $task = Task::factory()->create();
 
@@ -51,7 +51,7 @@ class TaskTest extends TestCase
 
         $this->assertNotNull($task->completed);
 
-        $task->uncomplete();
+        $task->incomplete();
 
         $this->assertNull($task->fresh()->completed);
     }
