@@ -24,6 +24,7 @@ class ManageProjectsTest extends TestCase
         $this->post('/projects/store', $project->toArray())->assertRedirect('login');
         $this->get('/projects')->assertRedirect('login');
         $this->get('/projects/create')->assertRedirect('login');
+        $this->get($project->path().'/edit')->assertRedirect('login');
         $this->get($project->path())->assertRedirect('login');
     }
 
@@ -66,10 +67,32 @@ class ManageProjectsTest extends TestCase
         $project = ProjectFactory::create();
 
         $this->actingAs($project->owner)
-            ->patch($project->path(), [
-            'notes' => 'Changed'
-        ]);
-        $this->assertDatabaseHas('projects', ['notes'=> 'Changed']);
+            ->patch($project->path(), $attributes = [
+                'notes' => 'Changed',
+                'title' => 'New title',
+                'description' => 'Old'
+            ]);
+
+        $this->get($project->path().'/edit')->assertOk();
+
+        $this->assertDatabaseHas('projects', $attributes);
+    }
+    /** @test */
+    public function a_user_can_update_a_projects_general_notes()
+    {
+        $this->withoutExceptionHandling();
+        $project = ProjectFactory::create();
+
+        $this->actingAs($project->owner)
+            ->patch($project->path(), $attributes = [
+                'notes' => 'Changed',
+            ]);
+
+        $this->assertDatabaseHas('projects', $attributes);
+
+        $this->get($project->path().'/edit')->assertOk();
+
+
     }
 
     /** @test */
@@ -113,6 +136,7 @@ class ManageProjectsTest extends TestCase
             ->assertSee($project->title)
             ->assertSee($project->description);
     }
+
     /** @test */
     public function an_authenticated_user_cannot_view_the_projects_of_others()
     {
@@ -139,6 +163,7 @@ class ManageProjectsTest extends TestCase
         $this->patch($project->path())->assertStatus(403);
 
     }
+
 
 }
 

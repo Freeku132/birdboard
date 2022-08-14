@@ -27,16 +27,12 @@ class ProjectsController extends Controller
 //          abort(403);
 //        }
         $this->authorize('update', $project);
-        $tasks = Task::with('project')->get();
+        $tasks = Task::with('project')->where('project_id', $project->id)->get();
         return view('projects.show', compact('project', 'tasks'));
     }
     public function store()
     {
-        $attributes = \request()->validate([
-            'title' => 'required',
-            'description' => 'required|max:100',
-            'notes' => 'min:3'
-        ]);
+        $attributes = $this->getValidate();
 
         //$attributes['owner_id'] = \Auth::id();
         $project =\auth()->user()->projects()->create($attributes);
@@ -57,14 +53,30 @@ class ProjectsController extends Controller
 //        }
         $this->authorize('update', $project);
 
-        \request()->validate([
-            'notes' => '',
-        ]);
+        $attributes = $this->getValidate();
 
-        $project->update(\request(['notes']));
+       $project->update($attributes);
 //        $project->update([
+//            'title' => \request('title'),
 //            'notes' => \request('notes'),
 //        ]);
         return redirect($project->path());
+    }
+
+    public function edit(Project $project)
+    {
+        return view('projects.edit', compact('project'));
+    }
+
+    /**
+     * @return array
+     */
+    public function getValidate(): array
+    {
+        return \request()->validate([
+            'title' => 'sometimes|required',
+            'description' => 'sometimes|required',
+            'notes' => 'min:3|nullable',
+        ]);
     }
 }

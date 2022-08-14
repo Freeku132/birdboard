@@ -1,11 +1,17 @@
 <x-layout>
 
-    <header class=" items-center  flex">
+    <header class=" items-center  flex ">
         <p class="font-normal text-3xl text-gray-500 mb-8"><a href="/projects" class="no-underline text-gray-500"> My Projects</a> / {{$project->title}}
-        <a href="/projects/create">
-            <button type="submit" class="m-4 bg-cyan-400 text-white text-normal text-sm rounded p-1 shadow-sm hover:bg-cyan-500 active:translate-y-0.5"
-                    href="/projects/create">Create new task</button>
-        </a>
+            <a href="/projects/create"
+               class=" no-underline w-25 m-4 bg-cyan-400 text-white text-normal text-sm rounded p-1 shadow-sm hover:bg-cyan-500 active:translate-y-0.5"
+            >
+                Create new tasks
+            </a>
+            <a href="{{$project->path()}}/edit" class=" no-underline w-25 m-4 bg-cyan-400 text-white text-normal text-sm rounded p-1 shadow-sm hover:bg-cyan-500 active:translate-y-0.5">
+                Edit project
+            </a>
+
+
         </p>
     </header>
     <main class="lg:flex justify-between">
@@ -45,7 +51,11 @@
                         <button class="m-1 w-12 bg-cyan-400 text-white text-normal text-sm rounded p-1 shadow-sm hover:bg-cyan-500 active:translate-y-0.5"
                                 type="submit">Save</button>
                     </div>
-
+                    <div>
+                            @error('notes')
+                            <p class="text-red-700">{{$message}}</p>
+                            @enderror
+                    </div>
                 </form>
             </div>
         </div>
