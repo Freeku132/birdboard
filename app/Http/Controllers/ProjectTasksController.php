@@ -37,12 +37,21 @@ class ProjectTasksController extends Controller
 
        $table = \request(['completed']);
 
-      isset($table['completed']) ? $table = ['completed' => Carbon::now()] : $table = ['completed' => NULL];
+ //     isset($table['completed']) ? $table = ['completed' => Carbon::now()] : $table = ['completed' => NULL];
 
-        $task->update([
-            'body' => \request('body'),
-            'completed' => $table['completed']
-        ]);
+//        $task->update([
+//            'body' => \request('body'),
+//            'completed' => $table['completed']
+//        ]);
+
+        $task->update(['body' => \request('body')]);
+
+        isset($table['completed']) ? $task->complete() : $task->uncomplete();
+//        $task->update(['completed' => NULL]
+//        if (\request()->has('completed'))
+//        {
+//            $task->complete();
+//        }
 
         return redirect($project->path());
     }
