@@ -66,6 +66,7 @@
             <h3 class="font-normal text-gray-500 text-lg">General Notes</h3>
             <x-project-card :project="$project">
             </x-project-card>
+            <x-activity.card :project="$project"/>
         </div>
 
 
