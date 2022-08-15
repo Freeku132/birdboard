@@ -10,6 +10,9 @@
                 @elseif($activity->description == 'created_task')
                     <h5>You created a "{{$activity->subject->body}}"</h5>
                     <h6 class="text-gray-500">{{$activity->updated_at->diffForHumans()}}</h6>
+                @elseif($activity->description == 'updated_task')
+                    <h5>You updated a "{{$activity->subject->body}}"</h5>
+                    <h6 class="text-gray-500">{{$activity->updated_at->diffForHumans()}}</h6>
                 @elseif($activity->description == 'completed_task')
                     <h5>You completed a "{{$activity->subject->body}}"</h5>
                     <h6 class="text-gray-500">{{$activity->updated_at->diffForHumans()}}</h6>

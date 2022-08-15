@@ -39,6 +39,12 @@ class Task extends Model
 
         $this->recordActivity('incompleted_task');
     }
+    public function updated_task()
+    {
+        $this->update(['body' => $this->body]);
+
+        $this->recordActivity('updated_task');
+    }
 
 
     public function project()
