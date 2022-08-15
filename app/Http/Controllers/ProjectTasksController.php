@@ -34,16 +34,19 @@ class ProjectTasksController extends Controller
             'body' => 'required',
         ]);
 
-
        $table = \request(['completed']);
 
-        if ($task->body == \request('body'))
+        if ($task->body == request('body'))
         {
             isset($table['completed']) ? $task->complete() : $task->incomplete();
         }
+        else {
+            $task->update([
+                'body' => \request('body'),
+            ]);
+            $task->updated_task();
+        }
 
-        $task->update(['body' => \request('body')]);
-        $task->updated_task();
 
 //        $task->update(['completed' => NULL]
 //        if (\request()->has('completed'))

@@ -86,6 +86,7 @@ class ProjectTasksTest extends TestCase
         $project = ProjectFactory::ownedBy($this->singIn())
             ->withTasks(1)
             ->create();
+        $project->tasks->first()->update(['body' => 'New task']);
 
         //$this->singIn();
         //$project = Project::factory()->create(['owner_id' => auth()->id()]);
@@ -96,6 +97,7 @@ class ProjectTasksTest extends TestCase
             'body' => 'New task',
             'completed' => Carbon::now()
         ]);
+
 
         $this->assertDatabaseHas('tasks', ['body' => 'New task', 'completed' => Carbon::now()]);
     }

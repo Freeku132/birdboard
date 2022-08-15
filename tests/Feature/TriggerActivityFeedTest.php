@@ -32,7 +32,12 @@ class TriggerActivityFeedTest extends TestCase
         ]);
 
         $this->assertCount(2, $project->activity);
-        $this->assertEquals('updated', $project->activity->last()->description);
+
+        tap($project->activity->last(), function ($activity) {
+            $this->assertEquals('updated', $activity->description);
+        });
+
+
     }
     /** @test */
     function creating_a_new_task()
@@ -53,6 +58,7 @@ class TriggerActivityFeedTest extends TestCase
     function completing_a_new_task()
     {
         $project = ProjectFactory::withTasks(1)->create();
+        $project->tasks->first()->update(['body' => 'foobar']);
 
         $this->actingAs($project->owner)
             ->patch($project->tasks->first()->path(), [
@@ -62,8 +68,9 @@ class TriggerActivityFeedTest extends TestCase
 
         $this->assertCount(3, $project->activity);
 
+        $this->assertDatabaseHas('tasks', ['body' => 'foobar', 'completed' => Carbon::now()]);
         tap($project->activity->last(), function ($activity){
-            $this->assertEquals('created_task', $activity->description);
+            $this->assertEquals('completed_task', $activity->description);
             $this->assertInstanceOf(Task::class, $activity->subject);
         });
     }
