@@ -20,7 +20,8 @@
                     <h5>You incompleted a "{{$activity->subject->body}}"</h5>
                     <h6 class="text-gray-500">{{$activity->updated_at->diffForHumans()}}</h6>
                 @elseif($activity->description == 'updated')
-                    <h5>You updated a "{{$activity->subject->body}}"</h5>
+                    <h5>Before: {{$activity->changes['before']['notes'] ? $activity->changes['before']['notes'] : 'Null'}}</h5>
+                    <h5>After: {{$activity->changes['after']['notes']}}</h5>
                     <h6 class="text-gray-500">{{$activity->updated_at->diffForHumans()}}</h6>
                 @else
                     <p class="mr-3">{{$activity->description}}</p>
