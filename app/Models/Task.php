@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\RecordsActivity;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Database\Factories\TaskFactory;
@@ -9,12 +10,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+    use RecordsActivity;
     use HasFactory;
 
 
     protected $guarded =[];
 
+   // public $old= [];
+
     protected $touches = ['project'];
+
+    protected static $recordableEvents = ['created', 'deleted'];
 
 //    protected static function boot()
 //    {
@@ -56,17 +62,28 @@ class Task extends Model
     {
         return "/projects/{$this->project->id}/tasks/{$this->id}";
     }
-    public function activity()
-    {
-        return $this->morphMany(Activity::class, 'subject')->latest();
-    }
-    public function recordActivity($description)
-    {
-        $this->activity()->create([
-            'description' => $description,
-            'project_id' => $this->project->id
-        ]);
-
-    }
+//    public function activity()
+//    {
+//        return $this->morphMany(Activity::class, 'subject')->latest();
+//    }
+//    public function recordActivity($description)
+//    {
+//        $this->activity()->create([
+//            'description' => $description,
+//            'changes' => $this->activityChanges(),
+//            'project_id' => class_basename($this) === 'Project' ? $this->id : $this->project->id
+//        ]);
+//
+//    }
+//    protected function activityChanges()
+//    {
+//        if ($this->wasChanged()) {
+//            return [
+//                'before' => array_diff($this->old, $this->getAttributes()),
+//                'after' => $this->getChanges(),
+//                //'after' => array_diff($this->getAttributes(),$this->old)
+//            ];
+//        }
+//    }
 
 }
