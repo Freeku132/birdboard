@@ -13,26 +13,23 @@ trait RecordsActivity
      */
     public static function bootRecordsActivity()
     {
-        static::updating(function ($model){
-            $model->oldAttributes = $model->getRawOriginal();
-        });
-
-        if (isset(static::$recordableEvents)){
-
-            $recordableEvents = static::$recordableEvents;
-        }else {
-            $recordableEvents = ['created', 'updated', 'deleted'];
-        }
-
-        foreach ($recordableEvents as $event){
+        foreach (self::recordableEvents() as $event){
             static::$event(function ($model) use ($event){
-                if (class_basename($model) != 'Project'){
-                    $event = "{$event}_".strtolower(class_basename($model));
-                }
-                $model->recordActivity($event);
+                $model->recordActivity($model->activityDescription($event));
             });
+
+            if($event == 'updated'){
+                static::updating(function ($model){
+                    $model->oldAttributes = $model->getRawOriginal();
+                });
             }
         }
+    }
+
+    public function activityDescription($description)
+    {
+        return "{$description}_".strtolower(class_basename($this));
+    }
 
 
     public function recordActivity($description)
@@ -60,5 +57,18 @@ trait RecordsActivity
                 //'after' => array_diff($this->getAttributes(),$this->old)
             ];
         }
+    }
+
+    /**
+     * @return array
+     */
+    public static function recordableEvents(): array
+    {
+        if (isset(static::$recordableEvents)) {
+            return static::$recordableEvents;
+        } else {
+            return ['created', 'updated', 'deleted'];
+        }
+
     }
 }
