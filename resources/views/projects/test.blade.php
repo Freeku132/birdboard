@@ -22,11 +22,11 @@
 
 <body class="bg-gray-light">
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-yellow-800 bg-gradient {background-image:} shadow-sm" >
+    <nav class="navbar navbar-expand-md navbar-light bg-yellow-500 bg-gradient {background-image:} shadow-sm" >
 
         <div class="container mx-auto">
             <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="/images/logo.svg" alt="Birdboard">
+                <img src="/images/Agro-Tom.png" width="150" alt="Birdboard" class="rounded-2xl shadow">
 
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -36,8 +36,58 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav me-auto">
 
+                <ul class="navbar-nav ms-3 sm:mt-1.5">
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class=" p-2 nav-link  bg-amber-400 rounded-xl h-9 text-black shadow "  href="#" role="button" data-bs-toggle="dropdown" >
+                            Usługi
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end bg-primary text-white" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-white" href="#">
+                               Orka
+                            </a>
+                            <a class="dropdown-item text-white" href="#">
+                                Talerzowanie
+                            </a>
+                            <a class="dropdown-item text-white" href="#">
+                                Koszenie nieużytków
+                            </a>
+                            <a class="dropdown-item text-white" href="#">
+                                Głęboszowanie
+                            </a>
+                        </div>
+
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-3 sm:mt-1.5">
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class=" p-2 nav-link bg-amber-400 rounded-xl h-9 text-black shadow "  href="#" role="button" data-bs-toggle="dropdown" >
+                            Park Maszynowy
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-primary text-white" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-white" href="#">
+                                Orka
+                            </a>
+                            <a class="dropdown-item text-white" href="#">
+                                Talerzowanie
+                            </a>
+                            <a class="dropdown-item text-white" href="#">
+                                Koszenie nieużytków
+                            </a>
+                            <a class="dropdown-item text-white" href="#">
+                                Głęboszowanie
+                            </a>
+                        </div>
+
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-3 sm:mt-1.5">
+                    <li class="nav-item dropdown">
+                    <a href="#" class="p-2 nav-link bg-amber-400 rounded-xl h-9 text-black shadow ">
+                            Kontakt
+                    </a>
+                    </li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -79,8 +129,16 @@
         </div>
     </nav>
 
-    <main class="py-4 container mx-auto ">
+    <main class="bg-blue-400 flex">
+        <div class="w-3/4">
+        <h1>
+            Witamy
+        </h1>
+        </div>
+        <div class="w-1/4 position-fixed float-right">
+            Kontakt:
 
+        </div>
     </main>
 </div>
 </body>

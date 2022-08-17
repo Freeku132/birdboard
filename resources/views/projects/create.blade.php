@@ -3,7 +3,7 @@
 <h1>Birdboard</h1>
 
 <div class="mt-8">
-<form method="POST" action="/projects/store" enctype="multipart/form-data">
+<form method="POST" action="/projects" enctype="multipart/form-data">
     @csrf
     <h3>Title:</h3>
     <input type="text" name="title" id="title" value="{{old('title')}}" required><br/>

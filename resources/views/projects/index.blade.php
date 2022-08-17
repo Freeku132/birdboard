@@ -17,6 +17,13 @@
                         </a>
                     </h3>
                     <div class="text-gray-400">{{ \Illuminate\Support\STR::limit($project->description, 100)}}</div>
+                    <footer>
+                    <form method="POST" action="{{$project->path()}}" class="text-right">
+                        @csrf
+                        @method('DELETE')
+                    <button type="submit" class=" w-1/4 m-1 bg-cyan-400 text-white rounded p-1 shadow-sm hover:bg-cyan-500 active:translate-y-0.5">Delete</button>
+                    </form>
+                    </footer>
                 </div>
             </div>
 

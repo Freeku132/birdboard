@@ -21,7 +21,7 @@ class ManageProjectsTest extends TestCase
 
         $project = Project::factory()->create();
 
-        $this->post('/projects/store', $project->toArray())->assertRedirect('login');
+        $this->post('/projects', $project->toArray())->assertRedirect('login');
         $this->get('/projects')->assertRedirect('login');
         $this->get('/projects/create')->assertRedirect('login');
         $this->get($project->path().'/edit')->assertRedirect('login');
@@ -45,7 +45,7 @@ class ManageProjectsTest extends TestCase
 
         ];
 
-        $response = $this->post('/projects/store', $attributes);
+        $response = $this->post('/projects', $attributes);
 
         $project = Project::where($attributes)->first();
 
@@ -68,6 +68,19 @@ class ManageProjectsTest extends TestCase
             ->delete($project->path())->assertRedirect('/projects');
 
         $this->assertDatabaseMissing('projects', $project->only('id'));
+    }
+    /** @test */
+    public function unauthorized_users_cannot_delete_projects()
+    {
+        $project = ProjectFactory::create();
+
+        $this->delete($project->path())->assertRedirect('/login');
+
+        $this->singIn();
+
+        $this->delete($project->path())->assertStatus(403);
+
+        //$this->assertDatabaseMissing('projects', $project->only('id'));
     }
 
     /** @test */
@@ -117,7 +130,7 @@ class ManageProjectsTest extends TestCase
 
         $attributes = Project::factory()->raw(['title' => '']);
 
-        $this->post('/projects/store', $attributes)->assertSessionHasErrors(['title']);
+        $this->post('/projects', $attributes)->assertSessionHasErrors(['title']);
     }
     /** @test */
     public function a_project_requires_a_description()
@@ -130,7 +143,7 @@ class ManageProjectsTest extends TestCase
 
         $attributes = Project::factory()->raw(['description' => '']);
 
-        $this->post('/projects/store', $attributes)->assertSessionHasErrors(['description']);
+        $this->post('/projects', $attributes)->assertSessionHasErrors(['description']);
     }
     /** @test */
     public function a_user_can_view_their_project()
