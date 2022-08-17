@@ -38,10 +38,11 @@ trait RecordsActivity
         $this->activity()->create([
             'description' => $description,
             'changes' => $this->activityChanges(),
-            'project_id' => class_basename($this) === 'Project' ? $this->id : $this->project->id
+            'project_id' => class_basename($this) === 'Project' ? $this->id : $this->project->id,
+            'user_id' => ($this->project ?? $this)->owner->id
         ]);
-
     }
+
 
     public function activity()
     {
