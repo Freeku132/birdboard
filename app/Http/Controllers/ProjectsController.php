@@ -45,6 +45,12 @@ class ProjectsController extends Controller
         return view('projects.create');
     }
 
+    public function destroy(Project $project)
+    {
+        $project->delete();
+        return redirect('/projects');
+    }
+
     public function update(Project $project)
     {
 //        if (auth()->user()->isNot($project->owner))
