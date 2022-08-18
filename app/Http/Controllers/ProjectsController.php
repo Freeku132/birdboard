@@ -17,7 +17,7 @@ class ProjectsController extends Controller
        //$projects = Project::with('owner')->get();
         //$projects = Project::where('owner_id', \auth()->id())->get();
 
-        $projects = \auth()->user()->projects;
+        $projects = \auth()->user()->allProjects();
 
         return view('projects.index', compact('projects'));
     }

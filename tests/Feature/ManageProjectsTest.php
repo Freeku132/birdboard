@@ -189,6 +189,20 @@ class ManageProjectsTest extends TestCase
 
     }
 
+    /** @test */
+    public function a_user_can_see_all_projects_they_been_invited_to_on_their_dashboard()
+    {
+
+        $this->withoutExceptionHandling();
+
+        $user = $this->singIn();
+
+        $project = tap(ProjectFactory::create())->invite($user); // zwraca Model projektu, nie rezultat metody której na nim wywołaliśmy
+        //$project->invite($user);
+
+        $this->get('/projects')->assertSee($project->title);
+    }
+
 
 }
 

@@ -16,7 +16,7 @@ class ProjectTasksController extends Controller
 //        {
 //            abort(403);
 //        }
-        $this->authorize('update', $project);
+        $this->authorize('update', $project); //Policies ProjectPolicy klasa
         \request()->validate([
             'body' => 'required'
         ]);
@@ -30,7 +30,7 @@ class ProjectTasksController extends Controller
 //        {
 //            abort(403);
 //        }
-        $this->authorize('update', $task->project);
+        $this->authorize('update', $task->project); //Policies
         \request()->validate([
             'body' => 'required',
         ]);
