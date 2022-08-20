@@ -4,6 +4,7 @@ use App\Http\Controllers\ProjectTasksController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectsController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

@@ -1,18 +1,38 @@
 <x-layout>
 
-    <header class=" items-center  flex ">
-        <p class="font-normal text-3xl text-gray-500 mb-8"><a href="/projects" class="no-underline text-gray-500"> My Projects</a> / {{$project->title}}
-            <a href="/projects/create"
-               class=" no-underline w-25 m-4 bg-cyan-400 text-white text-normal text-sm rounded p-1 shadow-sm hover:bg-cyan-500 active:translate-y-0.5"
-            >
-                Create new tasks
-            </a>
-            <a href="{{$project->path()}}/edit" class=" no-underline w-25 m-4 bg-cyan-400 text-white text-normal text-sm rounded p-1 shadow-sm hover:bg-cyan-500 active:translate-y-0.5">
-                Edit project
-            </a>
+    <header class="flex justify-between max-h-20">
+        <div class="flex justify-between w-full">
+            <p class="font-normal text-3xl text-gray-500 mb-8">
+                <a href="/projects" class="no-underline text-gray-500">
+                    My Projects
+                </a> / {{$project->title}}
+            </p>
+{{--            <a href="/projects/create"--}}
+{{--               class=" no-underline w-25 m-4 bg-cyan-400 text-white text-normal text-sm rounded p-1 shadow-sm hover:bg-cyan-500 active:translate-y-0.5"--}}
+{{--            >--}}
+{{--                Create new tasks--}}
+{{--            </a>--}}
+            <div class="flex ">
+                @foreach($project->members as $member)
+                    <img src="{{gravatar_url($member->name)}}"
+                         height="60" width="60"
+                         alt="{{$member->name}}'s avatar"
+                         class="m-2 rounded-full"/>
+
+                @endforeach
+                    <img src="{{gravatar_url($project->owner->name)}}"
+                         height="60" width="60"
+                         alt="{{$project->owner->name}}'s avatar"
+                         class="m-2 rounded-full"/>
+
+                <a href="{{$project->path()}}/edit"
+                   class=" no-underline p-2 m-4 bg-cyan-400 text-white text-sm rounded text-center shadow-sm hover:bg-cyan-500 active:translate-y-0.5">
+                    Edit project
+                </a>
+            </div>
 
 
-        </p>
+        </div>
     </header>
     <main class="lg:flex justify-between">
 
