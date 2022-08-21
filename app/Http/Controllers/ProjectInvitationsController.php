@@ -11,7 +11,8 @@ class ProjectInvitationsController extends Controller
 {
     public function store(Project $project, ProjectInvitationRequest $request)
     {
-//        $this->authorize('update', $project);
+        $this->authorize('manage', $project);
+
 //
 //        \request()->validate([
 //            'email' => 'exists:users,email|required'
@@ -23,6 +24,6 @@ class ProjectInvitationsController extends Controller
 
         $project->invite($user);
 
-        return redirect($project->path());
+        return redirect($project->path())->with('message');
     }
 }

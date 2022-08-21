@@ -1,5 +1,5 @@
 @props(['project'])
-<div class="mt-5 card">
+<div class="mt-3 card">
     <h3 class="header_card">Last Activity</h3>
     <ul>
         @foreach($project->activity as $activity)

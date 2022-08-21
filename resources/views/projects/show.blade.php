@@ -84,9 +84,12 @@
 
         <div class="lg:w-1/3">
             <h3 class="font-normal text-gray-500 text-lg">General Notes</h3>
-            <x-project-card :project="$project">
-            </x-project-card>
+            <x-project-card :project="$project"/>
+            @can('manage', $project)
+                <x-activity.invite_card :project="$project"/>
+            @endcan
             <x-activity.card :project="$project"/>
+
         </div>
 
 

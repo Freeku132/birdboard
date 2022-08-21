@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Http\Controllers\ProjectTasksController;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -16,9 +17,45 @@ class InvitationsTest extends TestCase
     /** @test */
     public function non_owners_may_not_invite_users()
     {
-        $this->actingAs(User::factory()->create())
-            ->post(ProjectFactory::create()->path().'/invitations')
+        $project = ProjectFactory::create();
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->post($project->path().'/invitations')
             ->assertStatus(403);
+
+        $project->invite($user);
+
+        $this->actingAs($user)
+            ->post($project->path().'/invitations')
+            ->assertStatus(403);
+
+    }
+    /** @test */
+    public function the_invited_user_must_not_already_be_invited()
+    {
+        $project = Project::factory()->create();
+        $invitedUser = User::factory()->create();
+
+        $project->invite($invitedUser);
+
+        $this->actingAs($project->owner)->post($project->path().'/invitations', [
+            'email' => $invitedUser->email
+        ])->assertSessionHasErrors([
+            'email' => 'The user has been already invited to the project.'
+        ], null, 'invitations');
+    }
+
+    /** @test */
+    public function a_project_owner_cannot_invite_themselves()
+    {
+        $project = Project::factory()->create();
+
+        $this->actingAs($project->owner)->post($project->path().'/invitations', [
+            'email' => $project->owner->email
+        ])->assertSessionHasErrors([
+            'email' => 'You cannot add yourself to the project.'
+        ], null, 'invitations');
     }
 
     /** @test */
@@ -44,12 +81,13 @@ class InvitationsTest extends TestCase
     {
         $project = ProjectFactory::create();
 
+        //$this->withoutExceptionHandling();
 
         $this->actingAs($project->owner)->post($project->path().'/invitations',[
             'email' => 'notauser@example.com'
         ])->assertSessionHasErrors([
             'email' => 'The user you are inviting must have a birdboard account.'
-        ]);
+        ], null, 'invitations');
 
     }
 

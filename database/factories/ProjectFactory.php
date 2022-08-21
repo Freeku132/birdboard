@@ -23,7 +23,8 @@ class ProjectFactory extends Factory
         return [
             'title' => $this->faker->sentence(2),
             'description' => $this->faker->paragraph(1),
-            'owner_id' => User::factory()->create()->id
+            'owner_id' => User::factory()->create()->id,
+            'notes' => 'Foobar notes'
         ];
     }
 }
