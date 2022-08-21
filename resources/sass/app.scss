@@ -8,9 +8,28 @@
 @import 'bootstrap/scss/bootstrap';
 
 .card {
-    @apply bg-white rounded-xl shadow-sm p-3 border-0;
+    @apply rounded-xl shadow-sm p-3 border-0;
+    @apply bg-card;
 }
 .header_card
 {
     @apply font-normal text-xl mb-4 py-2 -ml-4 border-l-4 border-cyan-400 pl-4;
+}
+
+.theme-light{
+    --page-background-color:#f3f4f6;
+    --card-background-color:white;
+    --button-background-color:#22d3ee;
+    --header-background-color:white;
+
+    --text-default-color:#737373;
+}
+.theme-dark{
+    --page-background-color:#222;
+    --card-background-color:#444;
+    --button-background-color:#22d3ee;
+    --header-background-color:#444;
+
+    --text-default-color:white;
+
 }
