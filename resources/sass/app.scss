@@ -7,37 +7,42 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
-.card {
-    @apply rounded-xl shadow-sm p-3 border-0;
-    @apply bg-card;
-}
-.header_card
-{
-    @apply font-normal text-xl mb-4 py-2 -ml-4 border-l-4 border-cyan-400 pl-4;
-    @apply text-default;
-}
-.button
-{
-    @apply m-1 text-white rounded px-1.5 py-1  shadow-sm hover:bg-cyan-500 active:translate-y-0.5;
-    @apply bg-button
-}
+@import 'themes/light';
+@import 'themes/dark';
 
-.theme-light{
-    --page-background-color:#f3f4f6;
-    --card-background-color:white;
-    --button-background-color:#22d3ee;
-    --header-background-color:white;
+@import 'components/button';
+@import 'components/card';
+@import 'components/header_card';
 
-    --border-default-color:#f3f4f6;
-    --text-default-color:black;
-}
-.theme-dark{
-    --page-background-color:#222;
-    --card-background-color:#444;
-    --button-background-color:#22d3ee;
-    --header-background-color:#444;
+//.card {
+//    @apply rounded-xl shadow-sm p-3 border-0;
+//    @apply bg-card;
+//}
+//.header_card
+//{
+//    @apply font-normal text-xl mb-4 py-2 -ml-4 border-l-4 border-cyan-400 pl-4;
+//    @apply text-default;
+//}
+//.button
+//{
+//    @apply m-1 text-white rounded px-1.5 py-1  shadow-sm hover:bg-cyan-500 active:translate-y-0.5;
+//    @apply bg-button
+//}
 
-    --border-default-color:#222;
-    --text-default-color:white;
-
-}
+//.theme-light{
+//    --page-background-color:#f3f4f6;
+//    --card-background-color:white;
+//    --button-background-color:#22d3ee;
+//    --header-background-color:white;
+//    --border-default-color:#f3f4f6;
+//    --text-default-color:black;
+//}
+//.theme-dark{
+//    --page-background-color:#222;
+//    --card-background-color:#444;
+//    --button-background-color:#22d3ee;
+//    --header-background-color:#444;
+//    --border-default-color:#222;
+//    --text-default-color:white;
+//
+//}

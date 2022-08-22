@@ -17,6 +17,8 @@ const app = createApp({});
 
 import ExampleComponent from './components/ExampleComponent.vue';
 app.component('example-component', ExampleComponent);
+import SwitcherTheme from './components/SwitcherTheme.vue';
+app.component('SwitcherTheme', SwitcherTheme);
 
 /**
  * The following block of code may be used to automatically register your

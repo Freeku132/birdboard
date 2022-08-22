@@ -1,0 +1,5 @@
+.button
+{
+    @apply m-1 text-white rounded px-1.5 py-1  shadow-sm hover:bg-cyan-500 active:translate-y-0.5;
+    @apply bg-button
+}
