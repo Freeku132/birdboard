@@ -1,7 +1,7 @@
 @props(['project'])
 <div class="card flex flex-col">
     <h3 class="header_card">
-        <a href="{{$project->path()}}" class="no-underline text-black flex-1">
+        <a href="{{$project->path()}}" class="no-underline text-default flex-1">
             {{$project->title}}
         </a>
     </h3>

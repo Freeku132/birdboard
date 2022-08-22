@@ -7,7 +7,7 @@
         <form method="POST" action="{{$project->path().'/invitations'}}" class=>
             @csrf
             @method('POST')
-            <input type="text" name="email" id="email" class="border-2 p-0.5 rounded-3 w-full" placeholder="Email"/>
+            <input type="text" name="email" id="email" class="border-2 border-border p-0.5 rounded-3 w-full bg-card" placeholder="Email"/>
             <footer>
                 <div class="text-right mt-1">
             <button type="submit" class=" w-1/4 m-1 bg-cyan-400 text-white rounded p-1 shadow-sm hover:bg-cyan-500 active:translate-y-0.5">Invite</button>

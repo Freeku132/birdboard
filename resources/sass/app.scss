@@ -14,6 +14,12 @@
 .header_card
 {
     @apply font-normal text-xl mb-4 py-2 -ml-4 border-l-4 border-cyan-400 pl-4;
+    @apply text-default;
+}
+.button
+{
+    @apply m-1 text-white rounded px-1.5 py-1  shadow-sm hover:bg-cyan-500 active:translate-y-0.5;
+    @apply bg-button
 }
 
 .theme-light{
@@ -22,7 +28,8 @@
     --button-background-color:#22d3ee;
     --header-background-color:white;
 
-    --text-default-color:#737373;
+    --border-default-color:#f3f4f6;
+    --text-default-color:black;
 }
 .theme-dark{
     --page-background-color:#222;
@@ -30,6 +37,7 @@
     --button-background-color:#22d3ee;
     --header-background-color:#444;
 
+    --border-default-color:#222;
     --text-default-color:white;
 
 }

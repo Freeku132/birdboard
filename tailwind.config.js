@@ -15,6 +15,7 @@ module.exports = {
             },
             colors: {
                 default: 'var(--text-default-color)',
+                border: 'var(--border-default-color)',
             }
         },
     },

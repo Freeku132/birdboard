@@ -3,7 +3,7 @@
     <h2 class="font-normal text-gray-500 text-default">My Projects</h2>
     <p class=>
         <a href="/projects/create">
-            <button type="submit" class="m-4 bg-cyan-400 text-white rounded p-1 shadow-sm hover:bg-cyan-500 active:translate-y-0.5"  href="/projects/create">Create new project</button>
+            <button type="submit" class="button"  href="/projects/create">Create new project</button>
         </a>
     </p>
 </header>
@@ -23,7 +23,7 @@
                     <form method="POST" action="{{$project->path()}}" class="text-right">
                         @csrf
                         @method('DELETE')
-                    <button type="submit" class=" w-1/4 m-1  bg-button text-white rounded p-1 shadow-sm hover:bg-cyan-500 active:translate-y-0.5">Delete</button>
+                    <button type="submit" class=" button">Delete</button>
                     </form>
                     </footer>
                     @endcan

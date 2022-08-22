@@ -12,7 +12,7 @@
 {{--            >--}}
 {{--                Create new tasks--}}
 {{--            </a>--}}
-            <div class="flex ">
+            <div class="flex items-center ">
                 @foreach($project->members as $member)
                     <img src="{{gravatar_url($member->name)}}"
                          height="60" width="60"
@@ -26,9 +26,10 @@
                          class="m-2 rounded-full"/>
 
                 <a href="{{$project->path()}}/edit"
-                   class=" no-underline p-2 m-4 bg-cyan-400 text-white text-sm rounded text-center shadow-sm hover:bg-cyan-500 active:translate-y-0.5">
+                   class="button no-underline">
                     Edit project
                 </a>
+
             </div>
 
 
@@ -46,7 +47,7 @@
                                 @method('PATCH')
                                 @csrf
                                 <div class="flex justify-between ">
-                                <input class="w-3/4 {{$task->completed ? 'text-gray-400' : ''}}" id="body" name="body" value="{{$task->body}}">
+                                <input class="w-3/4 bg-card {{$task->completed ? 'text-gray-500' : 'text-default'}}" id="body"  name="body" value="{{$task->body}}">
                                 <input type="checkbox" name="completed" class="m-1" onchange="this.form.submit()" {{$task->completed ? 'checked' : ''}}>
                                 </div>
                             </form>
@@ -56,7 +57,7 @@
                 <div class="card mb-4">
                     <form method="POST" action="{{$project->path().'/tasks'}}" >
                         @csrf
-                        <input type="text" name="body" id="body" placeholder="Add a new task" class="w-100">
+                        <input type="text" name="body" id="body" placeholder="Add a new task" class="w-100 bg-card">
                     </form>
                 </div>
 
@@ -67,9 +68,12 @@
                     @method('PATCH')
                     @csrf
                     <div class="flex justify-between card">
-                        <textarea class="w-100" id="notes" name="notes" placeholder="Do you want a place some notes?" >{{$project->notes}}</textarea>
-                        <button class="m-1 w-12 bg-cyan-400 text-white text-normal text-sm rounded p-1 shadow-sm hover:bg-cyan-500 active:translate-y-0.5"
-                                type="submit">Save</button>
+                        <textarea class="w-100 bg-card" id="notes" name="notes" placeholder="Do you want a place some notes?" >{{$project->notes}}</textarea>
+                        <div class="mt-2">
+                        <button class="button"
+                                type="submit">Save
+                        </button>
+                        </div>
                     </div>
                     <div>
                             @error('notes')
