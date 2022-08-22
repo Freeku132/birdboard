@@ -37,7 +37,8 @@
                 </h3>
             </div>
         @endforelse
-
-
     </main>
+
+
+
 </x-layout>

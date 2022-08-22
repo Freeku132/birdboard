@@ -6,12 +6,9 @@
                 :style="{backgroundColor: color}"
 
                 @click="selectedTheme = theme"></button>
-
-
 <!--        <button class="rounded-full w-5 h-5 bg-black border-2 mr-2"-->
 <!--                :class= "{ 'border-info': selectedTheme == 'theme-dark'}"-->
 <!--                @click="selectedTheme = 'theme-dark'"></button>-->
-
     </div>
 </template>
 <script>
