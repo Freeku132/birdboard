@@ -19,7 +19,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body class="theme-dark bg-page">
+<body class="theme-light bg-page">
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-header shadow-sm">
         <div class="container mx-auto">
