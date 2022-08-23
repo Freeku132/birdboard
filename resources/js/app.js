@@ -20,6 +20,8 @@ import ExampleComponent from './components/ExampleComponent.vue';
 app.component('example-component', ExampleComponent);
 import SwitcherTheme from './components/SwitcherTheme.vue';
 app.component('SwitcherTheme', SwitcherTheme);
+import Dropdown from './components/Dropdown.vue';
+app.component('Dropdown', Dropdown);
 
 /**
  * The following block of code may be used to automatically register your

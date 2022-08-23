@@ -68,20 +68,32 @@
                         @endif
                     @else
                         <switcher-theme></switcher-theme>
-                            <a id="navbarDropdown" class="nav-link text-default" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
-                            </a>
 
-                            <div class="dropdown-menu dropdown-menu-end text-default" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item text-default" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
+                            <dropdown>
+                                <template v-slot:trigger>
+                                    <button
+                                        class="text-default"
+                                        href="#" >
+                                        {{ Auth::user()->name }}
+                                    </button>
+                                </template>
+                                <a href="#"> Item 1</a>
+                                <a href="#"> Item 1</a>
+                                <a href="#"> Item 1</a>
+                            </dropdown>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
+
+
+{{--                            <div class="dropdown-menu dropdown-menu-end text-default" aria-labelledby="navbarDropdown">--}}
+{{--                                <a class="dropdown-item text-default" href="{{ route('logout') }}"--}}
+{{--                                   onclick="event.preventDefault();--}}
+{{--                                                     document.getElementById('logout-form').submit();">--}}
+{{--                                    {{ __('Logout') }}--}}
+{{--                                </a>--}}
+
+{{--                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">--}}
+{{--                                    @csrf--}}
+{{--                                </form>--}}
                             </div>
 
                     @endguest
